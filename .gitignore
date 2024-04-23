@@ -5,6 +5,7 @@
 connectionstring.txt
 # dotenv files
 .env
+ConnString.txt
 
 # User-specific files
 *.rsuser
