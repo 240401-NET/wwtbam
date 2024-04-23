@@ -24,11 +24,7 @@ This is a Full Stack Web Application which leverages the .NET Framework to mimic
 
 # Tables
 
-- User
-    - User Name
-    - Friends
-- Game
-- Leaderboard
+ ![ERD](./ERD-240423.jpg)
 
 # MVP Goals
 
