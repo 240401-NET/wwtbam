@@ -1,7 +1,7 @@
 ﻿using server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
-namespace Data;
+namespace server.Repository;
 
 public class GameRepository : IRepository
 {
