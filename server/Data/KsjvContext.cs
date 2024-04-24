@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using server.Models;
+
 namespace server.Data;
 
 public partial class KsjvContext : DbContext
