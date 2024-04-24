@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-
-namespace server;
+using server.Models;
+namespace server.Data;
 
 public partial class KsjvContext : DbContext
 {
