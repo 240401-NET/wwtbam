@@ -15,7 +15,7 @@ public class GameController : ControllerBase
         _gameService = gameService;
     }
 
-    [HttpGet("Games")]
+    [HttpGet()]
     public ActionResult<IEnumerable<Game>> GetAllGames()
     {
         try
