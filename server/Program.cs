@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<KsjvContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(File.ReadAllText("ConnString.txt"))));
 // builder.Services.AddScoped<IUserRepository, UserRepository>();
-// builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
