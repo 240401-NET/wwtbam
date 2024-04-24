@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace server.Repository;
+namespace server;
 
 public partial class User
 {
