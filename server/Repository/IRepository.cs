@@ -1,5 +1,5 @@
 using server;
-namespace Data;
+namespace server.Repository;
 
 public interface IRepository
 {
