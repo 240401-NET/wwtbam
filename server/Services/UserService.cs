@@ -10,9 +10,9 @@ public class UserService : IUserService
   {
     _userRepository = userRepository;
   }
-  public void DeleteUserByUsername(string username)
+  public void DeleteUserByName(string username)
   {
-    _userRepository.DeleteUserByUsername(username);
+    _userRepository.DeleteUserByName(username);
   }
 
   public User? GetUserById(string userId)
@@ -20,9 +20,9 @@ public class UserService : IUserService
     return _userRepository.GetUserById(userId);
   }
 
-  public User? GetUserByUsername(string username)
+  public User? GetUserByName(string username)
   {
-    return _userRepository.GetUserByUsername(username);
+    return _userRepository.GetUserByName(username);
   }
 
   public void UpdateUser(User user)

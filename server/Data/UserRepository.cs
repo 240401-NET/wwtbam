@@ -12,14 +12,14 @@ class UserRepository : IUserRepository
   }
 
   //GET ONE
-  public User? GetUserByUsername(string username)
+  public User? GetUserByName(string username)
   {
-    return _context.Users.FirstOrDefault(u => u.Username.Equals(username));
+    return _context.Users.FirstOrDefault(u => u.Name.Equals(username));
   }
 
-  public void DeleteUserByUsername(string username)
+  public void DeleteUserByName(string username)
   {
-    User? toBeDeleted = _context.Users.FirstOrDefault(u => u.Username.Equals(username));
+    User? toBeDeleted = _context.Users.FirstOrDefault(u => u.Name.Equals(username));
     if (toBeDeleted != null)
     {
       _context.Users.Remove(toBeDeleted);
@@ -36,12 +36,12 @@ class UserRepository : IUserRepository
 
   public void UpdateUser(User user)
   {
-    User? existingUser = GetUserByUsername(user.Username);
+    User? existingUser = GetUserByName(user.Name);
 
     if (existingUser != null)
     {
-      existingUser.Username = user.Username;
-      Console.WriteLine("Username updated");
+      existingUser.Name = user.Name;
+      Console.WriteLine("Name updated");
       _context.SaveChanges();
     }
   }

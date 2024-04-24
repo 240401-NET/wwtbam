@@ -7,7 +7,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddDbContext<KsjvContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(File.ReadAllText("ConnString.txt"))));
+
+builder.Services.AddDbContext<KsjvContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("KsjvDatabase")));
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<KsjvContext>();
+builder.Services.AddIdentityCore<User>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+
+    options.User.RequireUniqueEmail = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+}).AddEntityFrameworkStores<KsjvContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddScoped<IGameRepository, GameRepository>();
@@ -26,6 +40,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapIdentityApi<User>();
+
+app.UseAuthorization();
+
 app.Run();
 
 

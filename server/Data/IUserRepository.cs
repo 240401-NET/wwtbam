@@ -3,9 +3,9 @@ using server.Models;
 public interface IUserRepository
 {
   //GET
-  User? GetUserByUsername(string username);
+  User? GetUserByName(string username);
   User? GetUserById(string userId);
 
-  void DeleteUserByUsername(string username);
+  void DeleteUserByName(string username);
   void UpdateUser(User user);
 }
