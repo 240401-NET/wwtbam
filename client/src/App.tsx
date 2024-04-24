@@ -5,7 +5,11 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [quiz, setQuiz] = useState([])
 
+  const fetchQuiz = async () => {
+    const response = aw
+  }
   return (
     <>
       <div>
