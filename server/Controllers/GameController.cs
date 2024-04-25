@@ -20,7 +20,7 @@ public class GameController : ControllerBase
     {
         try
         {
-            return Ok("ok bro");
+            return Ok(_gameService.GetAllGames());
         }
         catch (Exception e)
         {
