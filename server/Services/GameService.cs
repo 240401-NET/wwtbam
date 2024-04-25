@@ -10,8 +10,32 @@ class GameService : IGameService
     {
         _gameRepository = gameRepository;
     }
+
+    // Create
+
+    public Game AddNewGame(Game newGame)
+    {
+        return _gameRepository.AddNewGame(newGame);
+    }
+
+    // Update
+
     public IEnumerable<Game> GetAllGames()
     {
         return _gameRepository.GetAllGames();
+    }
+
+
+    public Game? GetGameById(int id)
+    {
+        return _gameRepository.GetGameById(id);
+    }
+
+    // Retrieve
+    // Delete
+
+    public Game? DeleteGame(int id)
+    {
+        return _gameRepository.DeleteGame(id);
     }
 }

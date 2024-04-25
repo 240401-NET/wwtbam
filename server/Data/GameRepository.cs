@@ -12,11 +12,48 @@ public class GameRepository : IGameRepository
         _context = context;
     }
 
+    // Create
+
+    public Game AddNewGame(Game newGame)
+    {
+        _context.Games.Add(newGame);
+        _context.SaveChanges();
+        return newGame;
+    }
+
+    public Game? GetGameById(int id)
+    {
+        return _context.Games.Find(id);
+    }
+
+    // Retrieve
+    
     public IEnumerable<Game> GetAllGames()
     {
         return _context.Games.ToList();
     }
 
+    // Update
 
+    // Delete
+
+    public Game? DeleteGame(int id)
+    {
+        Game? gameToDelete = GetGameById(id);
+        try
+        {
+            if (gameToDelete != null)
+            {
+                _context.Games.Remove(gameToDelete);
+                _context.SaveChanges();
+                return gameToDelete;
+            } 
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"No Game to Delete: {ex.Message}");
+        }
+        return gameToDelete;
+    }
 
 }
