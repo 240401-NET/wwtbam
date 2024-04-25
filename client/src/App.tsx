@@ -10,6 +10,8 @@ function App() {
   const fetchQuiz = async () => {
     const response = aw
   }
+  const  varName = "name";
+console.log(typeof varName)
   return (
     <>
       <div>
