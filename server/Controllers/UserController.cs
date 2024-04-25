@@ -13,11 +13,13 @@ public class UserController : ControllerBase
 {
   //register
   private IUserService _userService;
+  private IAuthService _authService;
 
 
-  public UserController(IUserService userService)
+  public UserController(IUserService userService, IAuthService authService)
   {
     _userService = userService;
+    _authService = authService;
   }
   [HttpGet("username")]
   public IActionResult GetUserByName([FromQuery] string username)
@@ -40,7 +42,7 @@ public class UserController : ControllerBase
   [HttpPost("register")]
   public async Task<ActionResult> Register(User user)
   {
-    var result = await _userService.Register(user);
+    var result = await _authService.Register(user);
     if (result.Succeeded)
     {
       return Ok("Registration successful");
@@ -53,7 +55,7 @@ public class UserController : ControllerBase
   [HttpPost("login")]
   public async Task<ActionResult> SignIn(LoginDto loginAttempt) //login dto
   {
-    bool isLoggedIn = await _userService.Login(loginAttempt);
+    bool isLoggedIn = await _authService.Login(loginAttempt);
     if (isLoggedIn)
     {
       return Ok("Login successful");
@@ -69,7 +71,7 @@ public class UserController : ControllerBase
   {
     try
     {
-      await _userService.Logout();
+      await _authService.Logout();
     }
     catch (Exception e)
     {
@@ -83,7 +85,7 @@ public class UserController : ControllerBase
   {
     try
     {
-      var (isVerified, user) = await _userService.Authorize(HttpContext);
+      var (isVerified, user) = await _authService.Authorize(HttpContext);
       if (!isVerified)
       {
         return Unauthorized("Not authorized to view this page");
