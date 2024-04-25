@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 namespace server.Data;
 
-public class GameRepository : IRepository
+public class GameRepository : IGameRepository
 {
     private readonly KsjvContext _context;
     public GameRepository(KsjvContext context)

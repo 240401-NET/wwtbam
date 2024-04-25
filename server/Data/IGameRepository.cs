@@ -1,7 +1,7 @@
 using server.Models;
 namespace server.Data;
 
-public interface IRepository
+public interface IGameRepository
 {
     IEnumerable<Game> GetAllGames();
 
