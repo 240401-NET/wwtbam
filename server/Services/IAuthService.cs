@@ -5,8 +5,8 @@ using server.Models;
 
 public interface IAuthService
 {
-  Task<IdentityResult> Register(User user);
-  Task<bool> Login(LoginDto loginAttempt);
+  Task<(IdentityResult, User?)> Register(RegisterDto dto);
+  Task<bool> Login(LoginDto dto);
   Task<bool> Logout();
   Task<(bool isVerified, User user)> Authorize(HttpContext context);
 }
