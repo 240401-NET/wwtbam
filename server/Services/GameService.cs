@@ -3,7 +3,7 @@ using server.Data;
 
 namespace server.Services;
 
-class GameService : IGameService
+public class GameService : IGameService
 {
     private readonly IGameRepository _gameRepository;
     public GameService(IGameRepository gameRepository)
@@ -18,7 +18,7 @@ class GameService : IGameService
         return _gameRepository.AddNewGame(newGame);
     }
 
-    // Update
+    // Retrieve
 
     public IEnumerable<Game> GetAllGames()
     {
@@ -31,7 +31,7 @@ class GameService : IGameService
         return _gameRepository.GetGameById(id);
     }
 
-    // Retrieve
+    // Update
     // Delete
 
     public Game? DeleteGame(int id)
