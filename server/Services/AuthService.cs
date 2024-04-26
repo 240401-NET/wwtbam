@@ -5,6 +5,7 @@ using server.Data;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Services;
 
@@ -33,37 +34,28 @@ public class AuthService : IAuthService
     return (true, user);
   }
 
-  public async Task<bool> Login(LoginDto loginAttempt)
+  public async Task<User> Login(LoginDto dto)
   {
     try
     {
-      User user = await _userManager.FindByEmailAsync(loginAttempt.Email);
-      if (user is not null)
-      {
-        loginAttempt.Username = user.UserName;
-        if (!user.EmailConfirmed)
+      User? user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == dto.Username);
+      if (user is not null){
+        var result = await _signInManager.PasswordSignInAsync(user, dto.Password, dto.Remember, false);
+        if (result.Succeeded)
         {
-          user.EmailConfirmed = true;
+          var updated = await _userManager.UpdateAsync(user);
+          // updated.Succeeded
+          return user;
         }
-        var result = await _signInManager.PasswordSignInAsync(user, loginAttempt.Password, loginAttempt.Remember, false);
-        if (!result.Succeeded)
-        {
-          Console.WriteLine("Email or password was incorrect, please try again");
-          return false;
-        }
-        var updated = await _userManager.UpdateAsync(user);
-        return true;
+        Console.WriteLine("Email or password was incorrect, please try again");
+        return null;
       }
-      else
-      {
-        Console.WriteLine("User not found");
-        return false;
-      }
+      Console.WriteLine("User not found");
+      return null;
     }
     catch (Exception e)
     {
-      Console.WriteLine("Error logging in: " + e.Message);
-      return false;
+      throw new Exception("Error logging in: " + e.Message);
     }
   }
 

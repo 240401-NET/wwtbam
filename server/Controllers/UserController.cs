@@ -41,6 +41,13 @@ public class UserController : ControllerBase
     : BadRequest("No user found with this username");
   }
 
+  //register with email, password, name, username
+  // {
+  //   "Email": "default@gmail.com",
+  //   "Password": "P@ssw0rd",
+  //   "Name": "Default",
+  //   "Username": "Default"
+  // }
   [HttpPost("register")]
   public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
   {
@@ -72,17 +79,37 @@ public class UserController : ControllerBase
   }
 
 
+
+  //login with username and password
+  //{
+  // "Username": "enter_username",
+  // "Password": "enter_password"
+  // }
   [HttpPost("login")]
-  public async Task<ActionResult> SignIn(LoginDto loginAttempt) //login dto
+  public async Task<ActionResult> SignIn(LoginDto loginDto) //login dto
   {
-    bool isLoggedIn = await _authService.Login(loginAttempt);
-    if (isLoggedIn)
-    {
-      return Ok("Login successful");
-    }
-    else
-    {
-      return BadRequest("Login failed, please try again");
+    try{
+      if(!ModelState.IsValid){
+        return BadRequest(ModelState);
+      }
+      var user = await _authService.Login(loginDto);
+      if (user is not null)
+      {
+        return Ok(
+          new NewUserDto{
+            UserName = user.UserName,
+            Email = user.Email,
+            Token = _tokenService.CreateToken(user)
+          }
+        );
+      }
+      else
+      {
+        return Unauthorized();
+      }
+    } catch (Exception e) {
+      Console.WriteLine(e.Message);
+      return StatusCode(500);
     }
   }
 
