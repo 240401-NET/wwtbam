@@ -56,7 +56,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

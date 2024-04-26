@@ -14,10 +14,10 @@ public class UserController : ControllerBase
   //register
   private IUserService _userService;
   private IAuthService _authService;
-  private TokenService _tokenService;
+  private ITokenService _tokenService;
 
 
-  public UserController(IUserService userService, IAuthService authService, TokenService tokenService)
+  public UserController(IUserService userService, IAuthService authService, ITokenService tokenService)
   {
     _userService = userService;
     _authService = authService;
@@ -41,6 +41,13 @@ public class UserController : ControllerBase
     : BadRequest("No user found with this username");
   }
 
+  //register with email, password, name, username
+  // {
+  //   "Email": "default@gmail.com",
+  //   "Password": "P@ssw0rd",
+  //   "Name": "Default",
+  //   "Username": "Default"
+  // }
   [HttpPost("register")]
   public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
   {
@@ -50,8 +57,6 @@ public class UserController : ControllerBase
         return BadRequest(ModelState);
       }
       var result = await _authService.Register(registerDto);
-      Console.WriteLine(result.Item1.Succeeded + " this is succeeded -----------------------------------------");
-      Console.WriteLine(result.Item2.Email + " this is email -----------------------------------------");
 
       if (result.Item1.Succeeded)
       {
@@ -71,32 +76,40 @@ public class UserController : ControllerBase
       Console.WriteLine(e.Message);
       return StatusCode(500);
     }
-
-
-
-    // var result = await _authService.Register(user);
-    // if (result.Succeeded)
-    // {
-    //   return Ok("Registration successful");
-    // }
-    // else
-    // {
-    //   return BadRequest("Registration failed, please try again");
-    // }
   }
 
 
+
+  //login with username and password
+  //{
+  // "Username": "enter_username",
+  // "Password": "enter_password"
+  // }
   [HttpPost("login")]
-  public async Task<ActionResult> SignIn(LoginDto loginAttempt) //login dto
+  public async Task<ActionResult> SignIn(LoginDto loginDto) //login dto
   {
-    bool isLoggedIn = await _authService.Login(loginAttempt);
-    if (isLoggedIn)
-    {
-      return Ok("Login successful");
-    }
-    else
-    {
-      return BadRequest("Login failed, please try again");
+    try{
+      if(!ModelState.IsValid){
+        return BadRequest(ModelState);
+      }
+      var user = await _authService.Login(loginDto);
+      if (user is not null)
+      {
+        return Ok(
+          new NewUserDto{
+            UserName = user.UserName,
+            Email = user.Email,
+            Token = _tokenService.CreateToken(user)
+          }
+        );
+      }
+      else
+      {
+        return Unauthorized();
+      }
+    } catch (Exception e) {
+      Console.WriteLine(e.Message);
+      return StatusCode(500);
     }
   }
 
