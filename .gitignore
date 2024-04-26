@@ -7,6 +7,7 @@ connectionstring.txt
 appsettings.json
 .env
 ConnString.txt
+coveragereport/
 
 # User-specific files
 *.rsuser
