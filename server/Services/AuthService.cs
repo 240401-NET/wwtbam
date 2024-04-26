@@ -84,7 +84,6 @@ public class AuthService : IAuthService
 
   public async Task<(IdentityResult, User?)> Register(RegisterDto dto)
   {
-
     try
     {
       User newUser = new User()
@@ -95,15 +94,7 @@ public class AuthService : IAuthService
       };
       var result = await _userManager.CreateAsync(newUser, dto.Password);
       if(result.Succeeded){
-          Console.WriteLine(result.Succeeded + "-------------------------");
-        var roleResult = await _userManager.AddToRoleAsync(newUser, "User");
-        if(roleResult.Succeeded){
-          Console.WriteLine(roleResult + "User role assigned successfully");
-          Console.WriteLine(roleResult + "-------------------------");
           return (result, newUser);
-        } else{
-          return (roleResult, null);
-        }
       } else{
         return (result, null);
       }

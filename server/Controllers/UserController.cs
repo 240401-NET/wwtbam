@@ -14,10 +14,10 @@ public class UserController : ControllerBase
   //register
   private IUserService _userService;
   private IAuthService _authService;
-  private TokenService _tokenService;
+  private ITokenService _tokenService;
 
 
-  public UserController(IUserService userService, IAuthService authService, TokenService tokenService)
+  public UserController(IUserService userService, IAuthService authService, ITokenService tokenService)
   {
     _userService = userService;
     _authService = authService;
@@ -50,8 +50,6 @@ public class UserController : ControllerBase
         return BadRequest(ModelState);
       }
       var result = await _authService.Register(registerDto);
-      Console.WriteLine(result.Item1.Succeeded + " this is succeeded -----------------------------------------");
-      Console.WriteLine(result.Item2.Email + " this is email -----------------------------------------");
 
       if (result.Item1.Succeeded)
       {
@@ -71,18 +69,6 @@ public class UserController : ControllerBase
       Console.WriteLine(e.Message);
       return StatusCode(500);
     }
-
-
-
-    // var result = await _authService.Register(user);
-    // if (result.Succeeded)
-    // {
-    //   return Ok("Registration successful");
-    // }
-    // else
-    // {
-    //   return BadRequest("Registration failed, please try again");
-    // }
   }
 
 
