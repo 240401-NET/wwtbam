@@ -14,12 +14,14 @@ public class UserController : ControllerBase
   //register
   private IUserService _userService;
   private IAuthService _authService;
+  private TokenService _tokenService;
 
 
-  public UserController(IUserService userService, IAuthService authService)
+  public UserController(IUserService userService, IAuthService authService, TokenService tokenService)
   {
     _userService = userService;
     _authService = authService;
+    _tokenService = tokenService;
   }
   [HttpGet("username")]
   public IActionResult GetUserByName([FromQuery] string username)
@@ -40,18 +42,50 @@ public class UserController : ControllerBase
   }
 
   [HttpPost("register")]
-  public async Task<ActionResult> Register(User user)
+  public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
   {
-    var result = await _authService.Register(user);
-    if (result.Succeeded)
-    {
-      return Ok("Registration successful");
+        try
+        {
+      if(!ModelState.IsValid){
+        return BadRequest(ModelState);
+      }
+      var result = await _authService.Register(registerDto);
+      Console.WriteLine(result.Item1.Succeeded + " this is succeeded -----------------------------------------");
+      Console.WriteLine(result.Item2.Email + " this is email -----------------------------------------");
+
+      if (result.Item1.Succeeded)
+      {
+        return Ok(
+          new NewUserDto{
+            UserName = registerDto.Username,
+            Email = registerDto.Email,
+            Token = _tokenService.CreateToken(result.Item2)
+          }
+        );
+      }
+      else
+      {
+        return StatusCode(500);
+      }
+    } catch (Exception e) {
+      Console.WriteLine(e.Message);
+      return StatusCode(500);
     }
-    else
-    {
-      return BadRequest("Registration failed, please try again");
-    }
+
+
+
+    // var result = await _authService.Register(user);
+    // if (result.Succeeded)
+    // {
+    //   return Ok("Registration successful");
+    // }
+    // else
+    // {
+    //   return BadRequest("Registration failed, please try again");
+    // }
   }
+
+
   [HttpPost("login")]
   public async Task<ActionResult> SignIn(LoginDto loginAttempt) //login dto
   {
