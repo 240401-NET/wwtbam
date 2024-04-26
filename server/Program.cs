@@ -2,6 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Services;
 using server.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddDbContext<KsjvContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("KsjvDatabase")));
-builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<KsjvContext>();
-builder.Services.AddIdentityCore<User>(options =>
+// builder.Services.AddAuthorization();
+// builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<KsjvContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = true;
@@ -22,10 +28,35 @@ builder.Services.AddIdentityCore<User>(options =>
     options.User.RequireUniqueEmail = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 }).AddEntityFrameworkStores<KsjvContext>();
+
+builder.Services.AddAuthentication(options =>{
+    options.DefaultAuthenticateScheme = 
+    options.DefaultChallengeScheme = 
+    options.DefaultForbidScheme = 
+    options.DefaultScheme = 
+    options.DefaultSignInScheme = 
+    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>{
+        options.TokenValidationParameters = new TokenValidationParameters{
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"])
+            )
+        };
+    });
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -42,8 +73,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
-app.MapIdentityApi<User>();
+// app.MapIdentityApi<User>();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.Run();
