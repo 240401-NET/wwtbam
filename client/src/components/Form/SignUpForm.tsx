@@ -1,30 +1,49 @@
-import React, { useState } from 'react'
-import { SignUpData, SignUpFormProps } from '../../types';
+import React, { useEffect, useState } from 'react'
+import { SignUpFormProps } from '../../types';
+import { signUp } from '../../api/userService';
 
 
-const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onSignUp }) => {
-  const [signupFormData, setSignupFormData] = useState<SignUpData>(formData);
+const SignUpForm: React.FC<SignUpFormProps> = () => {
+  const [first, setFirst] = useState<string>('');
+  const [last, setLast] = useState<string>('');
+  const [formData, setFormData] = useState<SignUpFormProps> ({
+    Username: "",
+    Email: "",
+    Password: "",
+    Name: first + last,
+  })
+  
+useEffect(() => {
+  setFormData(prev => ({ ...prev, Name: `${first}` + `${last}` }))
 
-  const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSignupFormData({
-      ...signupFormData,
-      [e.target.name]: e.target.value
-    });
+}, [first, last])
+
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await signUp(formData.Email, formData.Password, formData.Name, formData.Username);
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }
+
+
 
   const formInputClass = "w-full px-3 py-2 text-gray-700 border rounded-lg  focus:border-blue-500 active:border-indigo-900";
   const formLabelClass = "block text-yellow-700  text-sm font-bold mb-2";
   return (
  
-      <form onSubmit={onSignUp} className="px-8">
+      <form onSubmit={handleSignup}
+         className="px-8">
         <div className="grid grid-cols-2 gap-x-4 mb-4">
           <div>
             <label htmlFor="first" className={formLabelClass}>First Name</label>
-            <input type="text" id="first" value={formData.first} onChange={handleChanges} className={formInputClass}/>
+            <input type="text" id="first" value={first} onChange={(e) => setFirst(e.target.value)} className={formInputClass}/>
           </div>
           <div>
             <label htmlFor="last" className={formLabelClass}>Last Name</label>
-            <input type="text" id="last" value={formData.last} onChange={handleChanges} className={formInputClass}/>
+            <input type="text" id="last" value={last} onChange={(e) => setLast(e.target.value)} className={formInputClass}/>
           </div>
         </div>
         <div className='mb-4'>
@@ -32,8 +51,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onSignUp }) => {
           <input
             type="text"
             id="username"
-            value={formData.username}
-            onChange={handleChanges}
+            name='Username'
+            value={formData.Username}
+            onChange={handleChange}
             className={formInputClass}
             />
         </div>
@@ -43,8 +63,9 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onSignUp }) => {
           <input
             type="email"
             id="email"
-            value={formData.email}
-            onChange={handleChanges}
+            name='Email'
+            value={formData.Email}
+            onChange={handleChange}
             className={formInputClass}
             />
         </div>
@@ -53,15 +74,16 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ formData, onSignUp }) => {
           <input
             type="password"
             id="password"
-            value={formData.password}
-            onChange={handleChanges}
+            name='Password'
+            value={formData.Password}
+            onChange={handleChange}
             className={formInputClass}
             />
         </div>
         
         <p className='text-yellow-800 '>Already have an account?  <a href='/login' className='text-yellow-700 font-semibold'>Login</a></p>
         <div className='flex justify-center'>
-        <button className='bg-indigo-800 text-lg uppercase text-white  font-bold w-48 my-4 rounded-xl p-2 font-sans hover:scale-110 hover:bg-indigo-700'
+        <button className='bg-sky-800 text-lg uppercase text-white  font-bold w-48 my-4 rounded-xl p-2 font-sans hover:scale-110 hover:bg-sky-600'
         type='submit'
         >Submit</button>
         </div>

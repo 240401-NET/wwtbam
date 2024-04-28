@@ -1,22 +1,25 @@
-export interface SignUpData {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  first: string;
-  last: string;
-}
+
 
 export interface SignUpFormProps {
-  formData: SignUpData;
-  onSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
-}
-export interface LoginFormProps {
-  formData: LoginData;
-  onLogin: (e: React.FormEvent<HTMLFormElement>) => void;
+    Username: string;
+    Email: string;
+    Password: string;
+    Name: string
 }
 
-export interface LoginData {
-  username: string;
-  password: string;
+export interface LoginFormProps {
+  
+    Username: string;
+    Password: string;
+}
+
+export interface Token {
+  Username: string;
+  Email: string;
+  Token: string;
+}
+
+export interface ToastProps {
+  toastMessage: string;
+  color: string;
 }
