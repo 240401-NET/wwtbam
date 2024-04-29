@@ -60,6 +60,19 @@ public class GameController : ControllerBase
         }
     }
 
+    [HttpGet("Highest/{numGames}")]
+    public ActionResult<IEnumerable<Game>> GetHighestScoreGames(int numGames)
+    {
+        try
+        {
+            return Ok(_gameService.GetHighestScoreGames(numGames));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     // Update
     
     // Delete
