@@ -8,6 +8,8 @@ public interface IGameRepository
     // Retrieve
     IEnumerable<Game> GetAllGames();
     public Game? GetGameById(int id);
+
+    public IEnumerable<Game> GetAllGamesSorted();
     // Update
     // Delete
     public Game? DeleteGame(int id);

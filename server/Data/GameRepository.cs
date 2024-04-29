@@ -26,6 +26,11 @@ public class GameRepository : IGameRepository
         return _context.Games.Find(id);
     }
 
+    public IEnumerable<Game> GetAllGamesSorted()
+    {
+        return _context.Games.OrderByDescending(g => g.Score).ToList();
+    }
+
     // Retrieve
     
     public IEnumerable<Game> GetAllGames()

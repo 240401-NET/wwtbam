@@ -13,6 +13,7 @@ public interface IGameService
 
     public IEnumerable<Game> GetAllGames();
     public Game? GetGameById(int id);
+    public IEnumerable<Game> GetHighestScoreGame(int numGames);
 
     // Update
     // Delete
