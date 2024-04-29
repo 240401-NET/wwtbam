@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ public class GameController : ControllerBase
     }
 
     [HttpGet()]
+    // [Authorize]
     public ActionResult<IEnumerable<Game>> GetAllGames()
     {
         try
