@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { SignUpFormProps } from '../../types';
-import { signUp } from '../../api/userService';
+// import { signUp } from '../../api/userService';
 
 
 const SignUpForm: React.FC<SignUpFormProps> = () => {
@@ -20,7 +20,7 @@ useEffect(() => {
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp(formData.Email, formData.Password, formData.Name, formData.Username);
+    // await signUp(formData.Email, formData.Password, formData.Name, formData.Username);
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

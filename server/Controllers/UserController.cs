@@ -23,23 +23,25 @@ public class UserController : ControllerBase
     _authService = authService;
     _tokenService = tokenService;
   }
-  [HttpGet("username")]
-  public IActionResult GetUserByName([FromQuery] string username)
-  {
+  // [HttpGet]
+  // public IActionResult GetUserByName([FromQuery] string username)
+  // {
 
-    User user = _userService.GetUserByName(username);
-    return user is not null ? Ok(user)
-    : BadRequest("No user found with this username");
+  //   User user = _userService.GetUserByName(username);
+  //   return user is not null ? Ok(user)
+  //   : BadRequest("No user found with this username");
 
-  }
+  // }
 
-  [HttpGet("userId")]
-  public IActionResult GetUserById([FromQuery] string userId)
-  {
-    User user = _userService.GetUserByName(userId);
-    return user is not null ? Ok(user)
-    : BadRequest("No user found with this username");
-  }
+  // [HttpGet]
+  // public IActionResult GetUserById([FromQuery] string userId)
+  // {
+  //   User user = _userService.GetUserById(userId);
+  //   Console.WriteLine("Userid: " + userId);
+  //   Console.WriteLine("User " + user);
+  //   return user is not null ? Ok(user)
+  //   : BadRequest("No user found with this userId");
+  // }
 
   //register with email, password, name, username
   // {
@@ -82,11 +84,11 @@ public class UserController : ControllerBase
 
   //login with username and password
   //{
-  // "Username": "enter_username",
-  // "Password": "enter_password"
+  // "Username": "Default",
+  // "Password": "P@ssw0rd"
   // }
   [HttpPost("login")]
-  public async Task<ActionResult> SignIn(LoginDto loginDto) //login dto
+  public async Task<ActionResult> SignIn([FromBody]LoginDto loginDto) 
   {
     try{
       if(!ModelState.IsValid){

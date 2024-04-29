@@ -30,7 +30,7 @@ class UserRepository : IUserRepository
 
   public User? GetUserById(string userId)
   {
-    return _context.Users.Find(userId);
+    return _context.Users.FirstOrDefault(u => u.Id.Equals(userId));
 
   }
 

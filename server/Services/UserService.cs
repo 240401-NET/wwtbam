@@ -17,15 +17,15 @@ public class UserService : IUserService
     _userRepository.DeleteUserByName(username);
   }
 
-  public User? GetUserById(string userId)
-  {
-    return _userRepository.GetUserById(userId);
-  }
+  // public User? GetUserById(string userId)
+  // {
+  //   return _userRepository.GetUserById(userId);
+  // }
 
-  public User? GetUserByName(string username)
-  {
-    return _userRepository.GetUserByName(username);
-  }
+  // public User? GetUserByName(string username)
+  // {
+  //   return _userRepository.GetUserByName(username);
+  // }
 
   
   public void UpdateUser(User user)
