@@ -1,15 +1,12 @@
 import axios from "axios";
 import { Token } from "../types";
 
-//register with email, password, name, username
-// {
-//   "Email": "default@gmail.com",
-//   "Password": "P@ssw0rd",
-//   "Name": "Default",
-//   "Username": "Default"
-// }
 const baseUrl = "/api/User";
-export const signUp = async ( Email: string, Password: string, Name: string, Username: string ) => {
+
+ export const signUp = async ( 
+  Email: string, 
+  Password: string, 
+  Username: string ) => {
   const url = `${baseUrl}/register`;
   console.log(url);
   try {
@@ -18,7 +15,6 @@ export const signUp = async ( Email: string, Password: string, Name: string, Use
     {
       Email: Email,
       Password: Password,
-      Name: Name,
       Username: Username,
     },
     {
@@ -28,7 +24,7 @@ export const signUp = async ( Email: string, Password: string, Name: string, Use
         Accept: "application/json",
       },
     });
-    console.log(data);
+    console.log("DATA", data);
     return data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -40,7 +36,7 @@ export const signUp = async ( Email: string, Password: string, Name: string, Use
   }
 };
 
-export const signIn = async (Username: string, Password: string ) => {
+ export const signIn = async (Username: string, Password: string ) => {
   try {
   const data = await axios.post<Token>(
     `${baseUrl}/login`,
@@ -61,7 +57,7 @@ export const signIn = async (Username: string, Password: string ) => {
 }
 }
 
-export const signOut = async () => {
+ export const signOut = async () => {
   return axios.get(`${baseUrl}/logout`, {
     withCredentials: true,
     headers: {

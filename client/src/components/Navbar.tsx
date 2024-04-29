@@ -1,7 +1,11 @@
 import {FaRegCircleUser} from 'react-icons/fa6'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 //if authenticated -> view profile icon + logout
 //if not authenticated -> login + signup
+useEffect(() => {
+  const user = localStorage.getItem("user")
+  if (user)
+})
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false)
   console.log(setLoggedIn)

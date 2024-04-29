@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { LoginFormProps } from "../../types";
-import { signIn } from "../../api/userService";
-
+import { useAuth } from "../../context/AuthContext";
+// import AuthContext from '../../context/AuthContext'
+// import { signIn } from "../../api/userService";
 const LoginForm : React.FC<LoginFormProps> = () => {
+  const { loginUser } = useAuth();
   const [loginFormData, setLoginFormData] = useState<LoginFormProps>({
     Username: "",
     Password: ""
@@ -15,13 +17,15 @@ const LoginForm : React.FC<LoginFormProps> = () => {
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      await signIn(loginFormData.Username, loginFormData.Password);
+      loginUser(loginFormData.Username, loginFormData.Password)
+      console.log(typeof loginUser)
+      console.log("loginUser", loginUser)
     }
   const formInputClass = "w-full px-3 py-2 text-gray-700 border rounded-lg  focus:border-blue-500 active:border-indigo-900";
   const formLabelClass = "block text-yellow-700  text-sm font-bold mb-2";
   return (
  
-      <form onSubmit={handleLogin} className="px-8">
+      <form onSubmit={(e) => handleLogin(e)} className="px-8">
         
         <div className='mb-4'>
           <label htmlFor="username" className={formLabelClass}>Username</label>
