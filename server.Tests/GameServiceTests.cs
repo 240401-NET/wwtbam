@@ -149,7 +149,7 @@ public class GameServiceTests
         IGameService gameService = new GameService(mockRepo.Object);
 
         // Act
-        List<Game> gamesRetrieved = gameService.GetHighestScoreGame(numGames).ToList();
+        List<Game> gamesRetrieved = gameService.GetHighestScoreGames(numGames).ToList();
         
 
         // Assert
