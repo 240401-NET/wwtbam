@@ -37,12 +37,10 @@ public class GameController : ControllerBase
     {
         try
         {
-            Console.WriteLine("*** GET ALL GAME BRO *******");
             return Ok(_gameService.GetAllGames());
         }
         catch (Exception e)
         {
-            Console.WriteLine("/// IN CATCH ERROR ////////////");
             return BadRequest(e.Message);
         }
     }
