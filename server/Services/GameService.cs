@@ -31,6 +31,12 @@ public class GameService : IGameService
         return _gameRepository.GetGameById(id);
     }
 
+    public IEnumerable<Game> GetHighestScoreGame(int numGames)
+    {
+        IEnumerable<Game> gamesListSorted = _gameRepository.GetAllGamesSorted();
+        return gamesListSorted.Take(numGames);
+    }
+
     // Update
     // Delete
 

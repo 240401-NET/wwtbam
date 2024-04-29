@@ -127,4 +127,33 @@ public class GameServiceTests
         //Assert
             Assert.Equal(1,gameRetrieved.GameId);
     }
+
+    [Theory]
+    [InlineData(3)]
+    [InlineData(10)]
+    [InlineData(20)]
+    public void GameService_GetHighestScoreGame_ReturnsNHighestScoreGames(int numGames)
+    {
+        // Arrange
+        Mock<IGameRepository> mockRepo= new Mock<IGameRepository>();
+        Random mockRandom = new Random();
+        List<Game> gamesList = new List<Game>();
+        for (int i=0; i<50; i++) {
+            gamesList.Add(new Game{
+                GameId=i,
+                UserId="Fakenumber"+i,
+                Score= mockRandom.Next(1,50) * 1000,
+                PlayedAt=DateTime.UtcNow});
+        }
+        mockRepo.Setup(repo => repo.GetAllGamesSorted()).Returns(gamesList.OrderBy(g=>g.Score));
+        IGameService gameService = new GameService(mockRepo.Object);
+
+        // Act
+        List<Game> gamesRetrieved = gameService.GetHighestScoreGame(numGames).ToList();
+        
+
+        // Assert
+        Assert.Equal(numGames, gamesRetrieved.Count());
+
+    }
 }
