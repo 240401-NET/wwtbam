@@ -2,6 +2,7 @@ using Moq;
 using server.Models;
 using server.Data;
 using server.Services;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 
 namespace server.Tests;
 
@@ -104,5 +105,26 @@ public class GameServiceTests
         // Assert
         Assert.True(deletedGame != null);
         Assert.Equal(1, deletedGame.GameId);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    public void GameService_GetGameById_ReturnGame(int id){
+        //arrange
+        Mock<IGameRepository> mockRepo= new Mock<IGameRepository>();
+        Game fakeGame = new Game
+             {
+                GameId=1,
+                UserId="Fakenumber",
+                Score= 1000,
+                PlayedAt=DateTime.UtcNow};
+        mockRepo.Setup(repo => repo.GetGameById(id)).Returns(fakeGame);
+
+        IGameService gameService = new GameService(mockRepo.Object);
+
+        Game? gameRetrieved = gameService.GetGameById(id);
+
+        //Assert
+            Assert.Equal(1,gameRetrieved.GameId);
     }
 }
