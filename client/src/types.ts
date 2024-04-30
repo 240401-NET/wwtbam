@@ -37,3 +37,9 @@ export interface UserProfile  {
   userName: string,
   email: string,
 }
+
+export interface LadderRungProps {
+  amount: number,
+  round: number,
+  completed: boolean
+}
