@@ -57,8 +57,12 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-// builder.Services.AddScoped<IGameRepository, GameRepository>();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(options => {
+    options.JsonSerializerOptions.ReferenceHandler =
+    System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
