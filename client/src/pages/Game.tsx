@@ -1,5 +1,6 @@
 import ingameBackdrop from '../assets/gamebackdrop.webp'
 import GameInfoSidebar from '../components/GameInfoSidebar'
+import Lifelines from '../components/Lifelines'
 import QuestionContainer from './QuestionContainer'
 const Game = () => {
   //fetch quiz here 
@@ -7,14 +8,16 @@ const Game = () => {
   //make correctAnswer state here pass complete and correct to both children
   //-In question container, correct will make option bg-green & 
   //-In sidebar correct and complete will increment round, will add diamond and increment currentRound which will change bg-color 
+
   return (
     <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${ingameBackdrop})` }}>
       
       <div className="bg-black bg-opacity-50 h-full w-full flex flex-col justify-end">
-        <div className='flex justify-end items-center '>
+        <div className='flex justify-between items-center '>
+          <Lifelines />
         <GameInfoSidebar />
         </div>
-      
+          
           <QuestionContainer />
         </div>
     </div>
