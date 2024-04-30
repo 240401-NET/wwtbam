@@ -1,20 +1,24 @@
 import {FaRegCircleUser} from 'react-icons/fa6'
-import { useEffect, useState } from 'react';
+// import { useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 //if authenticated -> view profile icon + logout
 //if not authenticated -> login + signup
-useEffect(() => {
-  const user = localStorage.getItem("user")
-  if (user)
-})
+// useEffect(() => {
+//   const user = localStorage.getItem("user")
+//   if (user) {
+
+//   }
+// })
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
-  console.log(setLoggedIn)
+  const { isLoggedIn } = useAuth();
+
   return (
     <div className='sticky top-0 fixed mt-6'>
       <div className="navbar bg-transparent text-white font-serif">
         <div className="flex justify-end w-full">
           <ul className="menu menu-horizontal px-1">
-          {loggedIn ? (
+          {isLoggedIn() ? (
             <>
             <div className="flex justify-center items-center">
               <button className="">
@@ -24,14 +28,23 @@ const Navbar = () => {
               <li className="text-xl hover:scale-110">
               <a>Logout</a>
             </li>
-            <div className='flex justify-center items-center pr-12 pl-6 hover:scale-110'>
+            <div className='flex justify-center items-center pr-7 pl-6 hover:scale-110'>
               <FaRegCircleUser className="text-4xl text-white" />
             </div>
             </>
             ) : (
+              <>
+              <Link to="/login">
               <li className="text-xl hover:scale-110">
               <a>Login</a>
               </li>
+              </Link>
+              <Link to="/signup">
+              <li className="text-xl hover:scale-110">
+              <a>Sign Up</a>
+              </li>
+              </Link>
+              </>
             )}
             
           </ul>

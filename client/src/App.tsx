@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import Home from "./pages/Home"
 import { UserProvider } from "./context/AuthContext"
+import Game from "./pages/Game"
 // import AuthContext from "./context/AuthContext"
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/' element={<Home />} />
+        <Route path="/game" element={<Game />} />
         {/* <Route path="/auth" element={<AuthContext />} /> */}
       </Routes>
       </UserProvider>
