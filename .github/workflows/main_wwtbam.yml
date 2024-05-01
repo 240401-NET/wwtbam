@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - petapp-demo-demo
+name: Build and deploy ASP.Net Core app to Azure Web App - wwtbam
 
 on:
   push:
@@ -19,14 +19,14 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '8.x'
+          dotnet-version: 'v8.x'
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build  Week3/PetApp/Pets.API --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish Week3/PetApp/Pets.API -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -40,18 +40,27 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_19407CD52D49432CAB73CBE07EB69F08 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_ECC172A7423E4A0D8D777FD58B88E965 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_647C2DA90E9D4A38B50CD378CF966C44 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'petapp-demo-demo'
+          app-name: 'wwtbam'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D56BD88AD57D46E7B1DEAE3CCE096610 }}
           package: .
+          
