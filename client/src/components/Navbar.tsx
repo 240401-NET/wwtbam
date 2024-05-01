@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 //   }
 // })
 const Navbar = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   return (
     <div className='sticky top-0 fixed mt-6'>
@@ -25,9 +25,9 @@ const Navbar = () => {
               </button>
             </div>
             
-              <li className="text-xl hover:scale-110">
+              <button className="text-xl hover:scale-110" onClick={logout}>
               <a>Logout</a>
-            </li>
+            </button>
             <div className='flex justify-center items-center pr-7 pl-6 hover:scale-110'>
               <FaRegCircleUser className="text-4xl text-white" />
             </div>
