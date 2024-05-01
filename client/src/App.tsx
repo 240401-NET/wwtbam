@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
+import LeaderBoard from "./pages/LeaderBoard"
 import Home from "./pages/Home"
 import { UserProvider } from "./context/AuthContext"
 import Game from "./pages/Game"
@@ -17,6 +18,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/' element={<Home />} />
         <Route path="/game" element={<Game />} />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
         {/* <Route path="/auth" element={<AuthContext />} /> */}
       </Routes>
       </UserProvider>
