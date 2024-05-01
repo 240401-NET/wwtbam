@@ -43,3 +43,27 @@ export interface LadderRungProps {
   round: number,
   completed: boolean
 }
+
+export interface QuestionOptionProps {
+  letterChoice: string,
+  optionNumber: number,
+  questionText: string
+}
+
+export interface CurrentQuestionProps {
+  questionText: string,
+  questionOptions: string[]
+}
+
+export interface Question {
+  category: string;
+  correctAnswer: string;
+  difficulty: string;
+  id: string;
+  incorrectAnswers: string[];
+  isNiche: boolean;
+  question: string;
+  regions: string[];
+  tags: string[];
+  type: string;
+}
