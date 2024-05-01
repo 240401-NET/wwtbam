@@ -52,7 +52,9 @@
       }
     })
     console.log('Correct:', count['correct']);
+    
     console.log('Incorrect:', count['incorrect']);
+    console.log("Returned: " + { 'correct': count['correct']}, assignIncorrectOptions)
     return [{ 'correct': count['correct']}, assignIncorrectOptions]
   }
 
@@ -62,3 +64,6 @@
     console.log(incorrectOptions[randomIndex]);
     return incorrectOptions[randomIndex];
   }
+
+  //phone a friend
+  //<a href="tel:+4733378901">

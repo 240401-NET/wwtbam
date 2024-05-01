@@ -13,3 +13,6 @@ export const getQuestions = async (difficulty: string) => {
   const data = response.data;
   return data;
 }
+
+//TODO: Post game when done 
+//Make a profile page w/ user info + update contact info?

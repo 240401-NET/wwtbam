@@ -17,6 +17,10 @@ const Game = () => {
   //-In question container, correct will make option bg-green & 
   //-In sidebar currentIndex and complete will increment round, will add diamond and increment currentRound which will change bg-color
   
+  //Need function to reset game(questionNumber, gameOver, currentQuestion, quiz)
+  //OnQuestionAnswered -> check if correct -> increment questionNumber -> set new currentQuestion
+  //Need to implement user opting to not answer and keep the money
+  //Need state to keep track of money
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -31,6 +35,7 @@ const Game = () => {
     }
     fetchQuiz()
   }, []) 
+  console.log(currentQuestion?.incorrectAnswers)
 
   useEffect(() => {
     // Set the current question when the quiz data is available
@@ -44,23 +49,22 @@ const Game = () => {
   const handleCurrentQuestion = () => {
     setCurrentQuestion(quiz[questionNumber])
   }
-//  const updateQuestionNumber = () => {
-//     //if correct
-//     setQuestionNumber(questionNumber + 1)
-//     //set new question or 
-//     //else trigger game over
-//   }
+
+ const updateQuestionNumber = () => {
+    setQuestionNumber(questionNumber + 1)
+    console.log("questionNumber", questionNumber)
+  }
+  console.log("Question#: ", questionNumber)
 
   return (
     <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${ingameBackdrop})` }}>
       
       <div className="bg-black bg-opacity-50 h-full w-full flex flex-col justify-end">
         <div className='flex justify-between items-center '>
-          <Lifelines />
+        <Lifelines />
         <GameInfoSidebar />
         </div>
-          
-          <QuestionContainer currentQuestion={currentQuestion}/>
+          <QuestionContainer currentQuestion={currentQuestion} updateQuestionNumber={updateQuestionNumber} />
         </div>
     </div>
   )
