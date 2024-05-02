@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Question } from "../types"
-// import { displayRandomWeightedItem } from "../helpers"
 
 const QuestionContainer  = ({ currentQuestion, updateQuestionNumber }: { currentQuestion: Question | null, updateQuestionNumber: () => void }) => {
   const [choice, setChoice] = useState<string>("")
@@ -14,8 +13,6 @@ const QuestionContainer  = ({ currentQuestion, updateQuestionNumber }: { current
       setQuestionOptions(options)
     }
   }, [currentQuestion])
-// displayRandomWeightedItem()
-console.log("options: ", questionOptions)
 
 const letterChoices = ["A", "B", "C", "D"]
   
