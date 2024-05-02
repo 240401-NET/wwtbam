@@ -1,12 +1,14 @@
 import axios from "axios";
 import { Token } from "../types";
 
-const baseUrl = "https://wwtbam.azurewebsites.net/api/User";
+const baseUrl = "/api/user";
 
  export const signUp = async ( 
   Email: string, 
   Password: string, 
-  Username: string ) => {
+  Username: string,
+  Name: string
+) => {
   const url = `${baseUrl}/register`;
   console.log(url);
   try {
@@ -16,6 +18,8 @@ const baseUrl = "https://wwtbam.azurewebsites.net/api/User";
       Email: Email,
       Password: Password,
       Username: Username,
+      Name: Name
+      
     },
     {
       withCredentials: true,

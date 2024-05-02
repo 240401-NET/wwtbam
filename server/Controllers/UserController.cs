@@ -64,6 +64,7 @@ public class UserController : ControllerBase
       {
         return Ok(
           new NewUserDto{
+            UserId = result.Item2.Id,
             UserName = registerDto.Username,
             Email = registerDto.Email,
             Token = _tokenService.CreateToken(result.Item2)
@@ -99,6 +100,7 @@ public class UserController : ControllerBase
       {
         return Ok(
           new NewUserDto{
+            UserId = user.Id,
             UserName = user.UserName,
             Email = user.Email,
             Token = _tokenService.CreateToken(user)

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { SignUpFormProps } from '../../types';
-// import { signUp } from '../../api/userService';
+import { useAuth } from '../../context/AuthContext';
 
 
 const SignUpForm: React.FC<SignUpFormProps> = () => {
+  const { register } = useAuth();
   const [first, setFirst] = useState<string>('');
   const [last, setLast] = useState<string>('');
   const [formData, setFormData] = useState<SignUpFormProps> ({
-    Username: "",
     Email: "",
     Password: "",
-    Name: first + last,
+    Username: "",
+    Name: first + last
   })
   
 useEffect(() => {
@@ -20,7 +21,7 @@ useEffect(() => {
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await signUp(formData.Email, formData.Password, formData.Name, formData.Username);
+    register(formData.Email, formData.Password, formData.Username, formData.Name);
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

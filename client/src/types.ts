@@ -18,6 +18,7 @@ export interface Token {
   userName: string;
   email: string;
   token: string;
+  userId: string
 }
 
 export interface ToastProps {
@@ -28,7 +29,7 @@ export interface ToastProps {
 export interface UserContextType {
   user: UserProfile | null,
     token: string | null,
-    register: (Email: string, Username: string, Password: string) => void;
+    register: (Email: string, Username: string, Password: string, Name:string) => void;
     loginUser: (Username: string, Password: string) => void;
     logout: () => void;
     isLoggedIn: () => boolean;
