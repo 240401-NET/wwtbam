@@ -10,7 +10,6 @@ const Game = () => {
   const [questionNumber, setQuestionNumber] = useState<number>(0)
   // const [gameOver, setGameOver] = useState<boolean>(false)
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
-
   //fetch quiz here 
   //make function to serve 1 question at a time -> pass that question to question container
   //make correctAnswer state here pass complete and correct to both children
@@ -47,14 +46,24 @@ const Game = () => {
   console.log("Quiz: ", quiz)
 
   const handleCurrentQuestion = () => {
-    setCurrentQuestion(quiz[questionNumber])
+    
   }
+  //if questionNumber > quiz.length -> gam
 
  const updateQuestionNumber = () => {
-    setQuestionNumber(questionNumber + 1)
-    console.log("questionNumber", questionNumber)
+    const newQuestionNumber = questionNumber + 1
+  if (newQuestionNumber < quiz.length) {
+    console.log("Game Over")
+    // setGameOver(true)
+    setQuestionNumber(newQuestionNumber)
+    setCurrentQuestion(quiz[newQuestionNumber])
+  } else {
+    setCurrentQuestion(null)
   }
-  console.log("Question#: ", questionNumber)
+
+    }
+    
+  
 
   return (
     <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${ingameBackdrop})` }}>
