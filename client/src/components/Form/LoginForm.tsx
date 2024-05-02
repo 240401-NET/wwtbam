@@ -52,7 +52,7 @@ const LoginForm : React.FC<LoginFormProps> = () => {
             />
         </div>
         
-        <p className='text-yellow-800 '>Don't have an account?  <a href='/login' className='text-yellow-700 font-semibold'>Signup</a></p>
+        <p className='text-yellow-800 '>Don't have an account?  <a href='/signup' className='text-yellow-700 font-semibold'>Signup</a></p>
         <div className='flex justify-center'>
         <button className='bg-sky-800 text-lg uppercase text-white  font-bold w-48 my-4 rounded-xl p-2 font-sans hover:scale-110 hover:bg-sky-600'>Submit</button>
         </div>
