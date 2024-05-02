@@ -4,7 +4,6 @@
 ## Get latest from `dotnet new gitignore`
 connectionstring.txt
 # dotenv files
-appsettings.json
 .env
 ConnString.txt
 coveragereport/
