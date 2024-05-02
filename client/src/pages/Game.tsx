@@ -46,7 +46,9 @@ const Game = () => {
   console.log("Quiz: ", quiz)
 
   const handleCurrentQuestion = () => {
-    
+    setQuestionNumber(questionNumber)
+    setCurrentQuestion(quiz[questionNumber])
+    console.log("Current Question: ", currentQuestion)
   }
   //if questionNumber > quiz.length -> gam
 
@@ -57,6 +59,7 @@ const Game = () => {
     // setGameOver(true)
     setQuestionNumber(newQuestionNumber)
     setCurrentQuestion(quiz[newQuestionNumber])
+    console.log("Current Question: ", currentQuestion)
   } else {
     setCurrentQuestion(null)
   }
@@ -64,7 +67,7 @@ const Game = () => {
     }
     
   
-
+//TODO: Pass props to sidebar
   return (
     <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${ingameBackdrop})` }}>
       

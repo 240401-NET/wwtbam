@@ -1,3 +1,4 @@
+import React from "react";
 
 
 export interface SignUpFormProps {
@@ -66,4 +67,10 @@ export interface Question {
   regions: string[];
   tags: string[];
   type: string;
+}
+
+export interface ModalProps {
+  checkChoice: () => void;
+  close: () => void;
+  modalRef: React.RefObject<HTMLDialogElement>;
 }

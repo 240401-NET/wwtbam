@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Question } from "../types"
+import ConfirmModal from "../components/ConfirmModal"
 
 const QuestionContainer  = ({ currentQuestion, updateQuestionNumber }: { currentQuestion: Question | null, updateQuestionNumber: () => void }) => {
   const [choice, setChoice] = useState<string>("")
   const [selected, setSelected] = useState<boolean>(false)
   const [questionOptions, setQuestionOptions] = useState<string[]>([])
-
+  const modalRef = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     if (currentQuestion) {
       const options = [...currentQuestion.incorrectAnswers, currentQuestion.correctAnswer]
@@ -13,6 +14,7 @@ const QuestionContainer  = ({ currentQuestion, updateQuestionNumber }: { current
       setQuestionOptions(options)
     }
   }, [currentQuestion])
+  console.log("currentQuestion ", currentQuestion)
 
 const letterChoices = ["A", "B", "C", "D"]
   
@@ -21,7 +23,7 @@ const letterChoices = ["A", "B", "C", "D"]
     console.log("Answer clicked")
     setChoice(option) 
     setSelected(true)
-    checkChoice(option)
+    showModal()
   }  
   const shuffle = (array: string[]) => { 
     for (let i = array.length - 1; i > 0; i--) { 
@@ -31,13 +33,26 @@ const letterChoices = ["A", "B", "C", "D"]
     return array; 
   }; 
 
-  const checkChoice = (option:string) => {
-    if (option === currentQuestion?.correctAnswer) {
+  const checkChoice = () => {
+    if (choice === currentQuestion?.correctAnswer) {
       console.log("answer ",currentQuestion.correctAnswer)
+        
+        setChoice("")
+        setSelected(false)
         updateQuestionNumber()
       } else {
         window.alert("wrong")
+        setChoice("")
+        setSelected(false)
+        updateQuestionNumber()
       }
+  }
+
+  const showModal = () => {
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+    
   }
 return (
   <div className="w-full h-[35vh] bg-black bg-opacity-70 ">  
@@ -47,13 +62,23 @@ return (
     <div className="grid grid-cols-2 justify-center px-64 gap-x-8 gap-y-4 pt-6">
     {questionOptions.map((option, index) => (
           <button className={optionContainer} key={index} onClick={() => handleAnswer(option)}>
+            
             <p>{letterChoices[index]}:</p>
             <div className="text-white">{option}</div>
           </button>
         ))}
     </div>
+    {selected && (
+      <ConfirmModal
+      checkChoice={() => checkChoice()}
+      close={() => setSelected(false)}
+      modalRef={modalRef}
+      />
+    )}
   </div>
   )
 }
+
+
 
 export default QuestionContainer
