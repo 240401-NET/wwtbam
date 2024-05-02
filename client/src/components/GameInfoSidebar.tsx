@@ -1,5 +1,5 @@
-import React from 'react'
-import {FaDiamond} from 'react-icons/fa6'
+// import React from 'react'
+// import {FaDiamond} from 'react-icons/fa6'
 import LadderRung from './LadderRung'
 
 const GameInfoSidebar = () => {
