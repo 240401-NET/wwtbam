@@ -15,6 +15,10 @@ public class GameService : IGameService
 
     public Game AddNewGame(Game newGame)
     {
+        if (newGame.PlayedAt == null)
+        {
+            newGame.PlayedAt = DateTime.Now;
+        }
         return _gameRepository.AddNewGame(newGame);
     }
 
