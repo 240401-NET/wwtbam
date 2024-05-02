@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Token } from "../types";
 
-const baseUrl = "/api/user";
+const baseUrl = "/api/User";
 
  export const signUp = async ( 
   Email: string, 

@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaUsers } from "react-icons/fa6";
 import { FaPhoneVolume } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
-const Lifelines = () => {
+const Lifelines = ({score}: {score: number}) => {
   const [usedFiftyFifty, setUsedFiftyFifty] = useState(false)
   const [usedAudience, setUsedAudience] = useState(false)
   const [usedPhoneAFriend, setUsedPhoneAFriend] = useState(false)
+  const [userName, setUserName] = useState<string>("")
+  
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    const name = JSON.parse(user!).userName
+    setUserName(name)
+  })
   const buttonClass = "border border-8 border-sky-400 rounded-full bg-black p-4 flex items-center text-4xl w-32 h-32 justify-center hover:scale-110 hover:border-white hover:bg-sky-400 hover:border-8 hover:ease-in-out hover:cursor-pointer"
-
+  
   const handleLifelineUsage = (lifeline: string) => {
     switch (lifeline) {
       case 'fiftyFifty':
@@ -24,7 +31,13 @@ const Lifelines = () => {
     }
   };
   return (
+    <>
+    
     <div className="flex flex-col pt-4 justify-evenly pr-6 gap-y-12 pl-4">
+      <div >
+    <p className='text-amber-500 text-center font-bold text-3xl pb-2'>{userName}</p>
+    <p className='text-amber-500 text-center font-bold text-3xl'>${score}</p>
+    </div>
       {!usedFiftyFifty ? (
         <button className={buttonClass} onClick={() => handleLifelineUsage('fiftyFifty')}>        
         <p className="text-white  text-3xl font-bold">50/50</p>
@@ -63,6 +76,7 @@ const Lifelines = () => {
           </div>
         )}
         </div>
+        </>
   )
 }
 

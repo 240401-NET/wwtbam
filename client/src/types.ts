@@ -43,7 +43,8 @@ export interface UserProfile  {
 export interface LadderRungProps {
   amount: number,
   round: number,
-  completed: boolean
+  completed: boolean,
+  active: boolean
 }
 
 export interface QuestionOptionProps {
@@ -74,4 +75,14 @@ export interface ModalProps {
   checkChoice: () => void;
   close: () => void;
   modalRef: React.RefObject<HTMLDialogElement>;
+}
+
+export interface GameProps {
+  score?: number;
+  playedAt?: Date;
+  userId: string;
+}
+
+export interface RoundValueProps {
+  [key: number]: number;
 }
