@@ -25,6 +25,9 @@ const Home = () => {
                 <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>START GAME</button>
                 </>
               )}
+              <Link to="/leaderboard">
+                <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>LEADERBOARD</button>
+              </Link>
               <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>INSTRUCTIONS</button>
           </div>
           </div>
