@@ -9,5 +9,5 @@ public partial class User : IdentityUser
 
     public string? Name { get; set; }
 
-    public virtual ICollection<Game> Games { get; set; } = new List<Game>();
+    // public virtual ICollection<Game> Games { get; set; } = new List<Game>();
 }

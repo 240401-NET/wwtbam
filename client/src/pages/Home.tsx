@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       
       <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${backdrop})` }}>
-      <Navbar />
+        <Navbar />
         <div className=" h-full w-full">
           <div className="flex flex-col justify-center items-center h-full w-full">
             
@@ -25,10 +25,11 @@ const Home = () => {
                 <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>START GAME</button>
                 </>
               )}
-              <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>INSTRUCTIONS</button>
+              <Link to="/leaderboard">
+                <button className='border border-2 border-yellow-900 text-yellow-800 font-serif text-xl font-bold bg-gradient-to-r from-yellow-700 via-yellow-200 to-yellow-500 h-24 w-48 rounded-xl hover:scale-110'>LEADERBOARD</button>
+              </Link>
+            </div>
           </div>
-          </div>
-          
         </div>
       </div>
     </div>

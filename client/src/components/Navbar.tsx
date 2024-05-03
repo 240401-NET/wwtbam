@@ -16,6 +16,9 @@ const Navbar = () => {
   return (
     <div className='sticky top-0 fixed mt-6'>
       <div className="navbar bg-transparent text-white font-serif">
+        <div className="flex-1">
+          <a href="/" className="btn btn-ghost text-xl">Home</a>
+        </div>
         <div className="flex justify-end w-full">
           <ul className="menu menu-horizontal px-1">
           {isLoggedIn() ? (
