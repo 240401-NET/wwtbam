@@ -4,6 +4,6 @@ export interface Game {
     gameId: number
     userId: string
     score: number
-    playedAt: boolean
+    playedAt: string
     createdBy: User
 }
