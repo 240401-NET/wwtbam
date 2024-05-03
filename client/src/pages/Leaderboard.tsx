@@ -9,8 +9,8 @@ const Leaderboard = () => {
     let[leaderboardState, setLeaderboardState] = useState<Game[]>([]);
     useEffect(()=>{getLeaderboard()}, []);
     const getLeaderboard = async () => {
-        // fetch("https://wwtbam.azurewebsites.net/api/game/highest/10")
-        fetch("http://localhost:5211/api/game/highest/10")
+        fetch("https://wwtbam.azurewebsites.net/api/game/highest/10")
+        // fetch("http://localhost:5211/api/game/highest/10")
         .then(response => {return response.json()})
         .then(data => setLeaderboardState(data))
         .catch(error => console.log(error));
