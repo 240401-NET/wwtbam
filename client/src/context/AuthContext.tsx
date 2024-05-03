@@ -17,7 +17,7 @@ export const UserProvider = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
-  const [errMsg, setErrMsg] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -55,29 +55,25 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const loginUser = async (username: string, password: string) => {
-    try {
-      await signIn(username, password)
-        .then((res) => {
-          console.log("RES", res);
-          if (res) {
-            localStorage.setItem("token", res?.data.token);
-            const userObj = {
-              userName: res?.data.userName,
-              email: res?.data.email,
-              id: res?.data.userId,
-            };
+    await signIn(username, password)
+      .then((res) => {
+        console.log("RES", res);
+        if (res) {
+          localStorage.setItem("token", res?.data.token);
+          const userObj = {
+            userName: res?.data.userName,
+            email: res?.data.email,
+            id: res?.data.userId,
+          };
 
-            localStorage.setItem("user", JSON.stringify(userObj));
-            setToken(res?.data.token);
-            setUser(userObj!);
-            navigate("/");
-          }
-        })
-        // .catch((e) => console.log(""));
-    } catch (e) {
-      setErrMsg("Invalid Username and/or Password");
-    }
-
+          localStorage.setItem("user", JSON.stringify(userObj));
+          setToken(res?.data.token);
+          setUser(userObj!);
+          navigate("/");
+        }
+      })
+      .catch(() => setErrMsg("Invalid Username and/or Password")
+      );
   };
 
   const isLoggedIn = () => {

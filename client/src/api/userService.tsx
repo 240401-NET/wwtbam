@@ -57,7 +57,8 @@ export const signIn = async (Username: string, Password: string) => {
     );
     return data;
   } catch (error) {
-    console.error(error);
+    console.error("This is User Service"+error);
+    throw new Error("This is User Service"+error);
   }
 };
 
