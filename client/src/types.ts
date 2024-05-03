@@ -68,6 +68,8 @@ export interface UserContextType {
 
     isLoggedIn: () => boolean; 
 
+    errMsg: string | null;
+
 } 
 
  

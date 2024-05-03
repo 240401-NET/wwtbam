@@ -1,143 +1,136 @@
-import axios from "axios"; 
+import axios from "axios";
 
-import { Token } from "../types"; 
+import { Token } from "../types";
 
- 
 
-const baseUrl = "/api/User"; 
 
- 
+const baseUrl = "/api/User";
 
- export const signUp = async (  
 
-  Email: string,  
 
-  Password: string,  
+export const signUp = async (
 
-  Username: string, 
+  Email: string,
 
-  Name: string 
+  Password: string,
 
-) => { 
+  Username: string,
 
-  const url = `${baseUrl}/register`; 
+  Name: string
 
-  console.log(url); 
+) => {
 
-  try { 
+  const url = `${baseUrl}/register`;
 
-  const data = await axios.post<Token>( 
+  console.log(url);
 
-    url, 
+  try {
 
-    { 
+    const data = await axios.post<Token>(
 
-      Email: Email, 
+      url,
 
-      Password: Password, 
+      {
 
-      Username: Username, 
+        Email: Email,
 
-      Name: Name 
+        Password: Password,
 
-       
+        Username: Username,
 
-    }, 
+        Name: Name
 
-    { 
 
-      withCredentials: true, 
 
-      headers: { 
+      },
 
-        "Content-Type": "application/json", 
+      {
 
-        Accept: "application/json", 
+        withCredentials: true,
 
-      }, 
+        headers: {
 
-    }); 
+          "Content-Type": "application/json",
 
-    console.log("DATA", data); 
+          Accept: "application/json",
 
-    return data; 
+        },
 
-  } catch (error: unknown) { 
+      });
 
-    if (axios.isAxiosError(error)) { 
+    console.log("DATA", data);
 
-      const errMessage = error.response?.data.message; 
+    return data;
 
-      throw new Error(errMessage) 
+  } catch (error: unknown) {
 
-    } else { 
+    if (axios.isAxiosError(error)) {
 
-      throw new Error('An unexpected error occurred'); 
+      const errMessage = error.response?.data.message;
 
-    } 
+      throw new Error(errMessage)
 
-  } 
+    } else {
 
-}; 
+      throw new Error('An unexpected error occurred');
 
- 
+    }
 
- export const signIn = async (Username: string, Password: string ) => { 
+  }
 
-  try { 
+};
 
-  const data = await axios.post<Token>( 
 
-    `${baseUrl}/login`, 
 
-    { 
+export const signIn = async (Username: string, Password: string) => {
 
-      Username: Username, 
+  // try { 
 
-      Password: Password, 
+  const data = await axios.post<Token>(
 
-    }, 
+    `${baseUrl}/login`,
 
-    { 
+    {
 
-      withCredentials: true, 
+      Username: Username,
 
-      headers: { 
+      Password: Password,
 
-        "Content-Type": "application/json", 
+    },
 
-        Accept: "application/json", 
+    {
 
-      }, 
+      withCredentials: true,
 
-    }); 
+      headers: {
 
-    return data; 
+        "Content-Type": "application/json",
 
-} catch (error) { 
+        Accept: "application/json",
 
-  console.error(error); 
+      },
 
-} 
+    });
 
-} 
+  return data;
+}
 
- 
 
- export const signOut = async () => { 
 
-  return axios.get(`${baseUrl}/logout`, { 
+export const signOut = async () => {
 
-    withCredentials: true, 
+  return axios.get(`${baseUrl}/logout`, {
 
-    headers: { 
+    withCredentials: true,
 
-      "Content-Type": "application/json", 
+    headers: {
 
-      Accept: "application/json", 
+      "Content-Type": "application/json",
 
-    }, 
+      Accept: "application/json",
 
-  }); 
+    },
+
+  });
 
 } 
