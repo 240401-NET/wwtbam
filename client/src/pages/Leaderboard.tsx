@@ -21,15 +21,18 @@ const Leaderboard = () => {
         <div className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed" style={{ backgroundImage: `url(${backdrop})` }}>
             <Navbar />
             {/* <h1 className="text-yellow-600 font-bold text-3xl py-6 text-center font-serif">Leaderboard</h1> */}
-            <div className=" w-full h-full">
+            <div className=" w-full h-full text-3xl ">
+                <div className='flex justify-center bg-yellow-70'>
+                <h1>TOP TEN</h1>
+                </div>
                 <div className="flex justify-center items-center pt-20">
-                    <table className="table-auto rounded-xl shadow-md" style={{backgroundImage: `url(${formbg})`, backgroundSize: 'cover'}}> 
-                        <thead>
-                            <tr>
-                                <th className="py-2 px-4 font-semibold text-yellow-800">Place</th>
-                                <th className="py-2 px-4 font-semibold text-yellow-800">Name</th>
-                                <th className="py-2 px-4 font-semibold text-yellow-800">Score</th>
-                                <th className="py-2 px-4 font-semibold text-yellow-800">Date</th>
+                    <table className="table-auto rounded-xl shadow-md  h-full" style={{backgroundImage: `url(${formbg})`, backgroundSize: 'cover'}}> 
+                        <thead >
+                            <tr >
+                                <th className="pt-6 pb-2 px-4 font-semibold text-yellow-800">Place</th>
+                                <th className="pt-6 pb-2 px-4 font-semibold text-yellow-800">Name</th>
+                                <th className="pt-6 pb-2 px-4 font-semibold text-yellow-800">Score</th>
+                                <th className="pt-6 pb-2 px-4 font-semibold text-yellow-800">Date</th>
                             </tr>
                         </thead>
                         <tbody>

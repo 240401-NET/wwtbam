@@ -61,6 +61,7 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
       modalRef.current.showModal();
     }
   };
+
   return (
     <div className="w-full h-[35vh] bg-black bg-opacity-70 ">
       <div className="flex justify-center items-center w-1/2 rounded-xl mx-auto py-6 border-4 border-sky-400">
