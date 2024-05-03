@@ -12,7 +12,7 @@ const GameInfoSidebar = ({
   useEffect(() => {
     updateQuestionScore();
   }, [roundNumber]);
-console.log("ROUND NUMBER"  + roundNumber)
+  
   const roundValue: RoundValueProps = {
     1: 100,
     2: 200,
