@@ -28,7 +28,7 @@ public class GameRepository : IGameRepository
 
     public IEnumerable<Game> GetAllGamesSorted()
     {
-        return _context.Games.OrderByDescending(g => g.Score).ToList();
+        return _context.Games.OrderByDescending(g => g.Score).Include(g => g.CreatedBy).ToList();
     }
 
     // Retrieve
