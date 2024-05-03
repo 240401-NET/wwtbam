@@ -39,6 +39,7 @@ const Game = () => {
         setQuiz(combined);
         setCurrentQuestion(combined[0]);
         localStorage.setItem("activeGame", "true");
+        setError([false, ""]);
       } catch (error) {
         setError([true, "Error fetching questions"]);
         console.error("Error fetching questions: ", error);
@@ -86,17 +87,22 @@ const Game = () => {
     console.log("Game Over!");
   };
 
+
   //TODO: Pass props to sidebar
-const toastMessage = error[1]
+  const toastMessage = error[1];
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-[100vh] w-full fixed"
       style={{ backgroundImage: `url(${ingameBackdrop})` }}
     >
       <div className="bg-black bg-opacity-50 h-full w-full flex flex-col justify-end">
-        <div className="flex justify-between items-center ">
+        <div className={`flex ${error[0] === true ? 'justify-center' : 'justify-between'} items-center w-full`}>
           <Lifelines score={score} />
-          {error && <Toast toastMessage={toastMessage} color="error"/>}
+          {error[0] && (
+            <div className="flex-1 flex justify-center">
+              <Toast toastMessage={toastMessage} color="error" />
+            </div>
+          )}
           <GameInfoSidebar
             roundNumber={questionNumber + 1}
             updateScore={updateScore}

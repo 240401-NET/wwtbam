@@ -9,6 +9,8 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
   const [choice, setChoice] = useState<string>("");
   const [selected, setSelected] = useState<boolean>(false);
   const [questionOptions, setQuestionOptions] = useState<string[]>([]);
+  const [correct, setCorrect] = useState<boolean | null>(null)
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const modalRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (currentQuestion) {
@@ -23,11 +25,12 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
 
   const letterChoices = ["A", "B", "C", "D"];
 
-  const optionContainer =
-    "justify-start cursor-pointer py-4 border-2 border-sky-400 rounded-xl flex items-center gap-x-8 px-16 text-xl hover:bg-amber-500 hover:text-white text-amber-500 font-bold tracking-wider focus:text-white focus:bg-amber-500";
+  // const optionContainer =
+  //   `justify-start cursor-pointer ${correct === "true" && 'bg-green-500'} ${correct === "false" && 'bg-red-500'} py-4 border-2 border-sky-400 rounded-xl flex items-center gap-x-8 px-16 text-xl hover:bg-amber-500 hover:text-white text-amber-500 font-bold tracking-wider focus:text-white focus:bg-amber-500`;
 
   const handleAnswer = (option: string) => {
     console.log("Answer clicked");
+    setSelectedOption(option)
     setChoice(option);
     setSelected(true);
     showModal();
@@ -41,16 +44,15 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
   };
 
   const checkChoice = () => {
-    if (choice === currentQuestion?.correctAnswer) {
-      console.log("Correct ", currentQuestion.correctAnswer);
-      updateQuestionNumber(true);
+    const correctAnswer = currentQuestion?.correctAnswer;
+    const isCorrect = selectedOption === correctAnswer;
+    setCorrect(isCorrect)
 
-    } else {
-      //set bg of chosen option to red, highlight correct answer in green
-      window.alert("wrong");
-      updateQuestionNumber(false);
-    }
-    setChoice("");
+    setTimeout(() => {
+      updateQuestionNumber(isCorrect);
+      setSelectedOption(null)
+      setCorrect(null)
+    }, 1500)
     setSelected(false);
   };
 
@@ -59,6 +61,7 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
       modalRef.current.showModal();
     }
   };
+
   return (
     <div className="w-full h-[35vh] bg-black bg-opacity-70 ">
       <div className="flex justify-center items-center w-1/2 rounded-xl mx-auto py-6 border-4 border-sky-400">
@@ -69,7 +72,10 @@ const QuestionContainer: React.FC<QuestionContainerProps> = ({
       <div className="grid grid-cols-2 justify-center px-64 gap-x-8 gap-y-4 pt-6">
         {questionOptions.map((option, index) => (
           <button
-            className={optionContainer}
+            className={`justify-start cursor-pointer py-4 border-2 border-sky-400 rounded-xl flex items-center gap-x-8 px-16 text-xl font-bold tracking-wider 
+            ${selectedOption === option && correct === true ? 'bg-green-500 text-white' : 
+              selectedOption === option && correct === false ? 'bg-red-500 text-white' :
+              'hover:bg-amber-500 hover:text-white text-amber-500'}`}
             key={index}
             onClick={() => handleAnswer(option)}
           >
