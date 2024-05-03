@@ -30,7 +30,8 @@ export interface UserContextType {
     register: (Email: string, Username: string, Password: string, Name:string) => void; 
     loginUser: (Username: string, Password: string) => void; 
     logout: () => void; 
-    isLoggedIn: () => boolean; 
+    isLoggedIn: () => boolean;
+    errMsg: string | null;
 } 
 
 export interface UserProfile  { 

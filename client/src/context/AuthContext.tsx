@@ -17,6 +17,7 @@ export const UserProvider = ({ children }: Props) => {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [errMsg, setErrMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -71,7 +72,8 @@ export const UserProvider = ({ children }: Props) => {
           navigate("/");
         }
       })
-      .catch((e) => console.error(e));
+      .catch(() => setErrMsg("Invalid Username and/or Password")
+      );
   };
 
   const isLoggedIn = () => {
@@ -88,7 +90,7 @@ export const UserProvider = ({ children }: Props) => {
 
   return (
     <UserContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, register }}
+      value={{ loginUser, user, token, logout, isLoggedIn, register, errMsg }}
     >
       {isReady ? children : null}
     </UserContext.Provider>
