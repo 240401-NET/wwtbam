@@ -19,7 +19,7 @@ public class GameController : ControllerBase
     // Create
 
     [HttpPost]
-    public ActionResult<Game> AddNewGame(Game newGame)
+    public ActionResult<Game> AddNewGame([FromBody] Game newGame)
     {
         try
         {
