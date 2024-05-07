@@ -1,6 +1,6 @@
 # Who Wants to be a Millionaire
 
-This is a Full Stack Web Application which leverages the .NET Framework to mimic the famous TV show Who wants to be a Millionaire.
+The "Who Wants to Be a Millionaire" Web App aims to recreate the popular TV show's experience in a digital format. It allows users to participate in a quiz game where they can answer multiple-choice questions to progress through different levels of difficulty and win virtual money. This Web App offers an immersive gaming experience, combining frontend interactivity with backend logic and database management. By leveraging modern web development technologies, the application provides users with a seamless and enjoyable quiz game experience.
 
 # Project Requirements
 - Application Must build and run
