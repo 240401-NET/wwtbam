@@ -1,4 +1,4 @@
-# Who Wants to be a Millionaire
+# Who Wants to be a Millionaire Back-End
 
 The "Who Wants to Be a Millionaire" Web App aims to recreate the popular TV show's experience in a digital format. It allows users to participate in a quiz game where they can answer multiple-choice questions to progress through different levels of difficulty and win virtual money. This Web App offers an immersive gaming experience, combining frontend interactivity with backend logic and database management. By leveraging modern web development technologies, the application provides users with a seamless and enjoyable quiz game experience.
 
@@ -8,53 +8,67 @@ The "Who Wants to Be a Millionaire" Web App aims to recreate the popular TV show
 - Utilize an external API
 - Backend hosted on Azure Cloud Services
 
-# External API
-
-[Trivia API](https://the-trivia-api.com/docs/v2/)
-
-# User Stories
-
-- Users should be ble to Login
-- Users should be able to Logout
-- Users should be able to Register
-- Users should be able to play a game with new questions each time with increasing difficulty as game progresses
-- Users should be able to share their scores/view place in their leaderboard
-- Users will have allotted time to answer each question
-- User should be able to check their profile/change their info
-
 # Tables
 
  ![ERD](./ERD-240423.jpg)
 
-# MVP Goals
+ # API
 
-- Users should be ble to Login/Logout/Register
-- Users should be able to play a game with new questions each time with increasing difficulty as game progresses
-- Users should be able to share their scores/view place in their leaderboard
-- User should be able to check their profile
+## Deployed to:
 
-# Stretch goals
+https://wwtbam.azurewebsites.net
 
-- mobile/responsive design
-- User adds friends
+## User API
 
-# Tech stack
+- /api/User/register
+    - POST mapping
+    - [From Body] registerDTO
+- /api/User/login
+    - POST mapping
+    - [From body] loginDTO
+- /api/User/logout
+    - GET mapping
+- /api/User/verify
+    - Verify user
+    - GET mapping
 
-- React/JS (Front End)
-- C# (Back End Progrmming Language)
-- SQL Server (Azure Hosted)
-- EF Core (ORM Tech)
-- ASP.NET (Web API Framework)
-- Npm 
-    - react-router-dom
-- HTML, CSS
-    - Tailwind, DaisyUI
+## Games API
+
+- api/Game
+    - Creates a new game
+    - POST mapping
+    - [From body] game
+- api/Game
+    - Gets all games
+    - GET mapping
+- api/Game/{id}
+    - Get game by id
+    - GET mapping
+    - [From Param] id
+- api/Game/Highest/{numGames}
+    - Retrieves the highest scoring (number of games)
+    - GET mapping
+    - [From Param] numGames 
+- api/Game/{id}
+    - Delete game by id
+    - DELETE mapping
+    - [From Param] id
+
+# Auth
+
+ASP.NET Core Identity
+
+# Test Coverage
+
+![Test Coverage](./backend_coverage_240509.jpg)
 
 # Responsibilities
 
-- Front End File Structure - Kenan
-- Kanban board - Val
-- ERD - Whoever does models
+- Model: Reverse Scaffold / Migration - Kenan / Jonathan / Samat
+- User API / authorization - Kenan / Samat
+- Game API - Jonathan / Val
+- Testing - Full Team
+- DevOps - Samat
 
 # Project Members
 
