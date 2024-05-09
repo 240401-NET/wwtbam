@@ -19,8 +19,7 @@ The "Who Wants to Be a Millionaire" Web App aims to recreate the popular TV show
 - Users should be able to Register
 - Users should be able to play a game with new questions each time with increasing difficulty as game progresses
 - Users should be able to share their scores/view place in their leaderboard
-- Users will have allotted time to answer each question
-- User should be able to check their profile/change their info
+- Users will have lifelines to help them if they get stuck, similar to the show
 
 # Tables
 
